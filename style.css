@@ -1,0 +1,40 @@
+/* Color palette
+#ffffff	rgb(255,255,255)
+#c51f5d	rgb(197,31,93)
+#243447	rgb(36,52,71)
+#141d26	rgb(20,29,38)
+#141d26	rgb(20,29,38) */
+
+* {
+    border: 1px solid white;
+}
+
+body {
+    background-color: rgb(14, 21, 29);
+    color: rgb(255, 255, 255);
+    padding-top: 50px;
+}
+
+.calculator-container {
+    margin: auto;
+    width: 500px;
+    height: 700px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.calculator-display {
+    height: 200px;
+}
+
+.calculator-buttons, .row-buttons, .button-wide, .button-square {
+    box-sizing: border-box;
+}
+.calculator-buttons {
+    flex: auto;
+}
+.row-buttons {
+    display: flex;
+}
