@@ -5,14 +5,17 @@
 #141d26	rgb(20,29,38)
 #141d26	rgb(20,29,38) */
 
-* {
-    border: 1px solid white;
-}
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300&display=swap');
+
+/* * {
+    border: 1px dashed white;
+} */
 
 body {
     background-color: rgb(14, 21, 29);
     color: rgb(255, 255, 255);
     padding-top: 50px;
+    font-family: 'Red Hat Mono', monospace;
 }
 
 .calculator-container {
@@ -23,10 +26,25 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    border: 1px solid rgb(36,52,71);
 }
 
+.calculator-container, .display-operation, .display-result {
+    box-sizing: border-box;
+}
 .calculator-display {
+    background-color: rgb(14, 14, 14);
     height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+.display-result {
+    font-size: 100px;
+    text-align: right;
+}
+.display-operation {
+    font-size: 45px;
+    text-align: right;
 }
 
 .calculator-buttons, .row-buttons, .button-wide, .button-square {
@@ -37,4 +55,15 @@ body {
 }
 .row-buttons {
     display: flex;
+}
+.button-square, .button-wide {
+    background-color: rgb(36,52,71);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    border: 1px solid rgb(14, 21, 29);
+}
+.button-operator {
+    background-color: rgb(14, 21, 29)
 }
