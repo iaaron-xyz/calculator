@@ -1,5 +1,5 @@
 const buttonsSection = document.getElementById("buttons-section");
-const buttons = document.getElementsByClassName("button");
+const buttons = document.getElementsByTagName("button");
 
 // This functions gets executed at the start of the page to place the buttons at proper size
 function placeButtons() {
