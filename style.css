@@ -65,6 +65,9 @@ body {
     background-color: rgb(14, 21, 29);
     color: rgb(0,231,138);
 }
+.operator {
+    color: rgb(0,231,138);
+}
 #delete, #clear, #percentage {
     color: rgb(255,207,0);
 }
