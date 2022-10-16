@@ -1,6 +1,5 @@
 const buttonsSection = document.getElementById("buttons-section");
-const buttonsSquare = document.getElementsByClassName("button-square");
-const buttonsWide = document.getElementsByClassName("button-wide");
+const buttons = document.getElementsByClassName("button");
 
 // This functions gets executed at the start of the page to place the buttons at proper size
 function placeButtons() {
@@ -12,15 +11,10 @@ function placeButtons() {
     const buttonCols = 4;
     const buttonRows = 5;
     // Get the number of elements with given classes
-    const listSizeSquare = buttonsSquare.length;
-    const listSizeWide = buttonsWide.length; 
+    const listButtons = buttons.length;
     // Assign a same height and width to square buttons
-    for (let i = 0; i < listSizeSquare; i++) {
-        buttonsSquare[i].style.cssText = `width: ${totalWidth/buttonCols}px; height: ${totalHeight/buttonRows}px;`;
-    }
-    // Assign the double of the width to wide buttons
-    for (let i = 0; i < listSizeWide; i++) {
-        buttonsWide[i].style.cssText = `width: ${2*totalWidth/buttonCols}px; height: ${totalHeight/buttonRows}px;`;
+    for (let i = 0; i < listButtons; i++) {
+        buttons[i].style.cssText = `width: ${totalWidth/buttonCols}px; height: ${totalHeight/buttonRows}px;`;
     }
 }
 
