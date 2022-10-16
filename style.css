@@ -10,6 +10,10 @@ body {
     padding-top: 50px;
     font-family: 'Red Hat Mono', monospace;
 }
+button {
+    color: white;
+    font-family: 'Red Hat Mono', monospace;
+}
 
 /* Calculator general */
 .calculator-container {
@@ -68,7 +72,7 @@ body {
 .operator {
     color: rgb(0,231,138);
 }
-#delete, #clear, #percentage {
+#delete, #clear, #percent {
     color: rgb(255,207,0);
 }
 #equal {
