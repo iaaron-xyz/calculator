@@ -122,7 +122,7 @@ function solveOperation() {
     return 0;
 }
 
-function additiion(x, y) {
+function addition(x, y) {
     return x+y;
 }
 function substraction(x, y) {
