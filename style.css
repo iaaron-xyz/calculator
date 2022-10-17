@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Red+Hat+Text:wght@300&display=swap');
 
 body {
     background-color: rgb(14, 21, 29);
     color: rgb(255, 255, 255);
     padding-top: 80px;
-    font-family: 'Red Hat Mono', monospace;
+    font-family: 'Red Hat Text', sans-serif;
 }
 button {
     background-color: rgb(36,52,71);
     color: white;
-    font-family: 'Red Hat Mono', monospace;
+    font-family: 'Major Mono Display', monospace;
     font-size: 45px;
     border: 1px solid rgb(14, 21, 29);
     /* flexbox */
