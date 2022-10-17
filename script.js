@@ -1,5 +1,6 @@
 const buttonsSection = document.getElementById("buttons-section");
 const buttons = document.getElementsByTagName("button");
+const btnOperators = Array.from(document.getElementsByClassName("button-operator")); 
 
 let operationPosition = 0;
 let currentDisplayElements = [];
@@ -43,12 +44,12 @@ function placeButtons() {
     }
 }
 
+/*
+This functions append valid elements into an array
+that will contain the elements of the current operation
+*/
 function generateSyntaxOperation() {
-    /*
-    This functions append valid elements into an array
-    that will contain the elements of the current operation
-    */
-    
+
     const currentElement = this.value;
     // Append the first operand (number)
     if (operationPosition == 0 && currentElement in numbers) {
@@ -82,20 +83,56 @@ function generateSyntaxOperation() {
         currentDisplayElements[2] += currentElement;
         console.log(currentElement);
     }
+    // After you have the operation stop adding more operators
     else {
         console.log(currentDisplayElements);
         return;
     }
 }
-function solveOperation(operationArguments) {
+
+// If the syntax is in order solve the current operation and set everything ready for the next
+function solveOperation() {
+    if (isValidSyntax(currentDisplayElements)) {
+        // Create short varialbes for better reading (is it good for performance?)
+        const x = currentDisplayElements[0];
+        const operator = currentDisplayElements[1];
+        const y = currentDisplayElements[2];
+        let result = 0;
+        if (operator == "plus") {
+            result = Number(x) + Number(y);
+        }
+        else if (operator == "minus") {
+            result = Number(x) - Number(y);
+        }
+        else if (operator == "multiplication") {
+            result = Number(x) * Number(y);
+        }
+        else {
+            result = Number(x) / Number(y);
+        }
+
+        console.log(result);
+        // Use the result as your first operand for the next operation
+        operationPosition = 2;
+        currentDisplayElements = [result];
+        return result;
+    }
+
+    console.log("not valid :(");
     return 0;
 }
-function validSyntaxOperation(array) {
-    if (Number(array[0]) && Number(array[2]) && array[2] in operators) {
-        return true;
+
+// Validate if the current operation is in correct order to be solved
+function isValidSyntax(array) {
+    // The array must contain 3 elements: <number> <operator> <number>
+    if (array.length == 3) {
+        if (Number(array[0]) && Number(array[2]) && array[1] in operators) {
+            return true;
+        }
     }
     return false;
 }
+
 // Highlight the button while pressed
 function addHighlight() {
     this.classList.add("button-press");
@@ -107,3 +144,8 @@ function removeHighlight() {
 
 // Place the buttons of the calculator when page loads for the first time
 placeButtons();
+
+// Assign to every operator button
+btnOperators.forEach(element => {
+    element.addEventListener("click", solveOperation);
+});
