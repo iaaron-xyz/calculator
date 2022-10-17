@@ -19,7 +19,7 @@ let numbers = {
 // This functions gets executed at the start of the page to place the buttons at proper size
 function placeButtons() {
     // Get the dimesnions of the buttons section
-    buttonsSectionStyle = getComputedStyle(buttonsSection)
+    const buttonsSectionStyle = getComputedStyle(buttonsSection)
     const totalHeight = parseInt(buttonsSectionStyle.height);
     const totalWidth = parseInt(buttonsSectionStyle.width);
     // Set the number of rows and columns for the buttons

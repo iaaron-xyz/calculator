@@ -1,36 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300&display=swap');
 
-/* * {
-    border: 1px dashed white;
-} */
-
 body {
     background-color: rgb(14, 21, 29);
     color: rgb(255, 255, 255);
-    padding-top: 50px;
+    padding-top: 80px;
     font-family: 'Red Hat Mono', monospace;
 }
 button {
     background-color: rgb(36,52,71);
     color: white;
     font-family: 'Red Hat Mono', monospace;
+    font-size: 45px;
+    border: 1px solid rgb(14, 21, 29);
+    /* flexbox */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 50px;
-    border: 1px solid rgb(14, 21, 29);
 }
 
 /* Calculator general */
 .calculator-container {
     margin: auto;
-    width: 500px;
-    height: 700px;
+    width: 400px;
+    height: 550px;
     padding: 5px;
-    display: flex;
-    flex-direction: column;
     box-sizing: border-box;
     border: 1px solid rgb(36,52,71);
+    /* flexbox */
+    display: flex;
+    flex-direction: column;
 }
 .calculator-container, .display-operation, .display-result {
     box-sizing: border-box;
@@ -39,28 +37,32 @@ button {
 /* Display styles */
 .calculator-display {
     background-color: rgb(14, 14, 14);
-    height: 200px;
+    height: 150px;
+    /* flexbox */
     display: flex;
     flex-direction: column;
 }
 .display-result {
-    font-size: 85px;
+    height: 90px;
+    font-size: 65px;
     text-align: right;
     color: rgb(0,231,138);
 }
 .display-operation {
-    font-size: 45px;
+    height: 60px;
+    font-size: 35px;
     text-align: right;
 }
 
 /* Buttons styles */
+.calculator-buttons {
+    height: 400px;
+}
 .calculator-buttons, .row-buttons, button {
     box-sizing: border-box;
 }
-.calculator-buttons {
-    flex: auto;
-}
 .row-buttons {
+    /* flexbox */
     display: flex;
 }
 .button-operator {
@@ -73,7 +75,7 @@ button {
 #delete, #clear, #percent {
     color: rgb(255,207,0);
 }
-#equal {
+.equal-operator {
     background-color: rgb(0,231,138);
     color: rgb(14, 21, 29);
 }
