@@ -99,16 +99,16 @@ function solveOperation() {
         const y = currentDisplayElements[2];
         let result = 0;
         if (operator == "plus") {
-            result = Number(x) + Number(y);
+            result = addition(x, y);
         }
         else if (operator == "minus") {
-            result = Number(x) - Number(y);
+            result = substraction(x, y);
         }
         else if (operator == "multiplication") {
-            result = Number(x) * Number(y);
+            result = multiplication(x, y);
         }
         else {
-            result = Number(x) / Number(y);
+            result = division(x, y);
         }
 
         console.log(result);
@@ -120,6 +120,23 @@ function solveOperation() {
 
     console.log("not valid :(");
     return 0;
+}
+
+function additiion(x, y) {
+    return x+y;
+}
+function substraction(x, y) {
+    return x-y;
+}
+function multiplication(x, y) {
+    return x*y;
+}
+function division(x, y) {
+    return roundOff(x/y, 5);
+}
+function roundOff(number, places) {
+    const x = Math.pow(10, places);
+    return Math.round(number*x)/x;
 }
 
 // Validate if the current operation is in correct order to be solved
