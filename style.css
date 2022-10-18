@@ -30,25 +30,25 @@ button {
     display: flex;
     flex-direction: column;
 }
-.calculator-container, .display-operation, .display-result {
+.calculator-container, .screen-operation, .screen-result {
     box-sizing: border-box;
 }
 
 /* Display styles */
-.calculator-display {
+.calculator-screen {
     background-color: rgb(14, 14, 14);
     height: 150px;
     /* flexbox */
     display: flex;
     flex-direction: column;
 }
-.display-result {
+.screen-result {
     height: 90px;
     font-size: 65px;
     text-align: right;
     color: rgb(0,231,138);
 }
-.display-operation {
+.screen-operation {
     height: 60px;
     font-size: 35px;
     text-align: right;

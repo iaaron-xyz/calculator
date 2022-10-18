@@ -36,34 +36,34 @@ function generateSyntaxOperation() {
     // GOOD CASES
     // Append the first operand (number)
     if (operationPosition == 0 && currentElement in numbers) {
-        currentDisplayElements.push(currentElement);
+        currentOperationElmnts.push(currentElement);
         console.log(currentElement);
         operationPosition++; // 1
     }
     // Keep typing the number in the same position
     else if (operationPosition == 1 && currentElement in numbers) {
-        currentDisplayElements[0] += currentElement;
+        currentOperationElmnts[0] += currentElement;
         console.log(currentElement);
     }
     // Go to the next position and add the operator
     else if (operationPosition == 1 && currentElement in operators) {
-        currentDisplayElements.push(currentElement);
+        currentOperationElmnts.push(currentElement);
         operationPosition++; // 2
         console.log(currentElement);
     }
     // Is possible to change the operator before start typing the next operand
     else if (operationPosition == 2 && currentElement in operators) {
-        currentDisplayElements[1] = currentElement;
+        currentOperationElmnts[1] = currentElement;
         console.log(currentElement);
     }
     // In the 3rd operand add the next number
     else if (operationPosition == 2 && currentElement in numbers) {
-        currentDisplayElements.push(currentElement);
+        currentOperationElmnts.push(currentElement);
         operationPosition++; // 3
         console.log(currentElement);
     }
     else if (operationPosition == 3 && currentElement in numbers) {
-        currentDisplayElements[2] += currentElement;
+        currentOperationElmnts[2] += currentElement;
         console.log(currentElement);
     }
 
@@ -85,11 +85,11 @@ If the syntax is in order solve the current operation and set
 everything ready for the next
 */
 function solveOperation() {
-    if (isValidSyntax(currentDisplayElements)) {
+    if (isValidSyntax(currentOperationElmnts)) {
         // Create short varialbes for better reading (is it good for performance?)
-        const x = Number(currentDisplayElements[0]);
-        const operator = currentDisplayElements[1];
-        const y = Number(currentDisplayElements[2]);
+        const x = Number(currentOperationElmnts[0]);
+        const operator = currentOperationElmnts[1];
+        const y = Number(currentOperationElmnts[2]);
         let result = 0;
         // Execute the operation
         if (operator == "plus") {
@@ -108,14 +108,14 @@ function solveOperation() {
         if (this.value in operators) {
             // Use the result as your first operand for the next operation
             operationPosition = 2;
-            currentDisplayElements = [result, this.value];
-            console.log(`aFTER reasign result ${currentDisplayElements}`);        
+            currentOperationElmnts = [result, this.value];
+            console.log(`aFTER reasign result ${currentOperationElmnts}`);        
             return result;
         }
         // When the user types the equal button
         else if (this.value == "equal"){
             operationPosition = 2;
-            currentDisplayElements = [result];
+            currentOperationElmnts = [result];
             return result;
         }
         else {
@@ -155,30 +155,30 @@ function isValidSyntax(array) {
 
 function clear() {
     // Reset the variables
-    currentDisplayElements = [];
+    currentOperationElmnts = [];
     operationPosition = 0;
-    console.log(currentDisplayElements, operationPosition);
+    console.log(currentOperationElmnts, operationPosition);
     // Clear the display calculator
-    displayOperation.innerHTML = '';
+    screenOperation.innerHTML = '';
 }
 
 // // Display the elements on calculator screen
-function displayOnScreen() {
-    if (currentDisplayElements.length == 1) {
-        displayOperation.innerHTML = currentDisplayElements[0];
+function displayOperation() {
+    if (currentOperationElmnts.length == 1) {
+        screenOperation.innerHTML = currentOperationElmnts[0];
     }
-    else if (currentDisplayElements.length == 2) {
-        displayOperation.innerHTML = currentDisplayElements[0] + 
-                                     operatorToHTML(currentDisplayElements[1]);
+    else if (currentOperationElmnts.length == 2) {
+        screenOperation.innerHTML = currentOperationElmnts[0] + 
+                                     operatorToHTML(currentOperationElmnts[1]);
     }
-    else if (currentDisplayElements.length == 3) {
-        displayOperation.innerHTML = currentDisplayElements[0] + 
-                                     operatorToHTML(currentDisplayElements[1]) + 
-                                     currentDisplayElements[2] + 
+    else if (currentOperationElmnts.length == 3) {
+        screenOperation.innerHTML = currentOperationElmnts[0] + 
+                                     operatorToHTML(currentOperationElmnts[1]) + 
+                                     currentOperationElmnts[2] + 
                                      '<span class="operator">=</span>';
     }
     else {
-        displayOperation.innerHTML = "";
+        screenOperation.innerHTML = "";
     }
 }
 
@@ -215,10 +215,10 @@ const buttons = document.getElementsByTagName("button");
 const btnOperators = document.getElementsByClassName("button-operator");
 const btnClear = document.getElementById("clear");
 const btnEqual = document.getElementById("equal");
-const displayOperation = document.querySelector(".display-operation");
+const screenOperation = document.querySelector(".screen-operation");
 
 let operationPosition = 0;
-let currentDisplayElements = [];
+let currentOperationElmnts = [];
 const numbers = {
     "1": 1,
     "2": 2,
@@ -249,7 +249,7 @@ for (let i = 0; i < btnOperators.length; i++) {
 // Show in the calculator screen the sybols typed
 for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].value in numbers || buttons[i].value in operators) {
-        buttons[i].addEventListener("click", displayOnScreen);
+        buttons[i].addEventListener("click", displayOperation);
     }
 }
 
