@@ -113,11 +113,9 @@ function solveOperation() {
             return;
         }
     }
-
-    console.log("not valid :c");
-    return 0;
+    return;
 }
-// Functions to solve 
+// Operation solve
 function addition(x, y) {
     return x+y;
 }
@@ -146,6 +144,12 @@ function isValidSyntax(array) {
     return false;
 }
 
+function clear() {
+    currentDisplayElements = [];
+    operationPosition = 0;
+    console.log(currentDisplayElements, operationPosition);
+}
+
 // Highlight the button while pressed
 function addHighlight() {
     this.classList.add("button-press");
@@ -161,7 +165,8 @@ function removeHighlight() {
 
 const buttonsSection = document.getElementById("buttons-section");
 const buttons = document.getElementsByTagName("button");
-const btnOperators = Array.from(document.getElementsByClassName("button-operator")); 
+const btnOperators = Array.from(document.getElementsByClassName("button-operator"));
+const btnClear = document.getElementById("clear"); 
 
 let operationPosition = 0;
 let currentDisplayElements = [];
@@ -192,3 +197,6 @@ placeButtons();
 btnOperators.forEach(element => {
     element.addEventListener("click", solveOperation);
 });
+
+// Add clear listener
+btnClear.addEventListener("click", clear);
