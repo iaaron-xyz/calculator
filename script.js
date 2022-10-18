@@ -94,10 +94,11 @@ function generateSyntaxOperation() {
 function solveOperation() {
     if (isValidSyntax(currentDisplayElements)) {
         // Create short varialbes for better reading (is it good for performance?)
-        const x = currentDisplayElements[0];
+        const x = Number(currentDisplayElements[0]);
         const operator = currentDisplayElements[1];
-        const y = currentDisplayElements[2];
+        const y = Number(currentDisplayElements[2]);
         let result = 0;
+        // Execute the operation
         if (operator == "plus") {
             result = addition(x, y);
         }
@@ -110,15 +111,26 @@ function solveOperation() {
         else {
             result = division(x, y);
         }
-
-        console.log(result);
-        // Use the result as your first operand for the next operation
-        operationPosition = 2;
-        currentDisplayElements = [result];
-        return result;
+        // When the user types an operator button
+        if (this.value in operators) {
+            // Use the result as your first operand for the next operation
+            operationPosition = 2;
+            currentDisplayElements = [result, this.value];
+            console.log(`aFTER reasign result ${currentDisplayElements}`);        
+            return result;
+        }
+        // When the user types the equal button
+        else if (this.value == "equal"){
+            operationPosition = 2;
+            currentDisplayElements = [result];
+            return result;
+        }
+        else {
+            return;
+        }
     }
 
-    console.log("not valid :(");
+    console.log("not valid :c");
     return 0;
 }
 
