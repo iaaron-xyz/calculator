@@ -1,29 +1,11 @@
-const buttonsSection = document.getElementById("buttons-section");
-const buttons = document.getElementsByTagName("button");
-const btnOperators = Array.from(document.getElementsByClassName("button-operator")); 
+/*************************************************
+ * FUNCTIONS
+ */
 
-let operationPosition = 0;
-let currentDisplayElements = [];
-const numbers = {
-    "1": 1,
-    "2": 2,
-    "3": 3,
-    "4": 4,
-    "5": 5,
-    "6": 6,
-    "7": 7,
-    "8": 8,
-    "9": 9,
-    "0": 0
-}
-const operators = {
-    plus: "plus",
-    minus: "minus",
-    multiplication: "multiplication",
-    division: "division"
-}
-
-// This functions gets executed at the start of the page to place the buttons at proper size
+/*
+This functions gets executed at the start of the page
+to place the buttons at proper size
+*/
 function placeButtons() {
     // Get the dimesnions of the buttons section
     const buttonsSectionStyle = getComputedStyle(buttonsSection)
@@ -49,7 +31,6 @@ This functions append valid elements into an array
 that will contain the elements of the current operation
 */
 function generateSyntaxOperation() {
-
     const currentElement = this.value;
     // Append the first operand (number)
     if (operationPosition == 0 && currentElement in numbers) {
@@ -90,7 +71,10 @@ function generateSyntaxOperation() {
     }
 }
 
-// If the syntax is in order solve the current operation and set everything ready for the next
+/*
+If the syntax is in order solve the current operation and set
+everything ready for the next
+*/
 function solveOperation() {
     if (isValidSyntax(currentDisplayElements)) {
         // Create short varialbes for better reading (is it good for performance?)
@@ -133,7 +117,7 @@ function solveOperation() {
     console.log("not valid :c");
     return 0;
 }
-
+// Functions to solve 
 function addition(x, y) {
     return x+y;
 }
@@ -168,6 +152,36 @@ function addHighlight() {
 }
 function removeHighlight() {
     this.classList.remove("button-press");
+}
+
+
+/**********************************************************
+ * DOM MANIPULATION
+ */
+
+const buttonsSection = document.getElementById("buttons-section");
+const buttons = document.getElementsByTagName("button");
+const btnOperators = Array.from(document.getElementsByClassName("button-operator")); 
+
+let operationPosition = 0;
+let currentDisplayElements = [];
+const numbers = {
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    "0": 0
+}
+const operators = {
+    plus: "plus",
+    minus: "minus",
+    multiplication: "multiplication",
+    division: "division"
 }
 
 
