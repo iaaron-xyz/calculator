@@ -19,7 +19,7 @@ function placeButtons() {
     // Assign a same height and width to square buttons
     for (let i = 0; i < listButtons; i++) {
         buttons[i].style.cssText = `width: ${totalWidth/buttonCols}px; height: ${totalHeight/buttonRows}px;`;
-        buttons[i].addEventListener("mouseup", generateSyntaxOperation);
+        buttons[i].addEventListener("mousedown", generateSyntaxOperation);
         // Add highlilight when the button is pressed
         buttons[i].addEventListener("mousedown", addHighlight);
         buttons[i].addEventListener("mouseup", removeHighlight);
@@ -32,11 +32,13 @@ that will contain the elements of the current operation
 */
 function generateSyntaxOperation() {
     const currentElement = this.value;
+
+    // GOOD CASES
     // Append the first operand (number)
     if (operationPosition == 0 && currentElement in numbers) {
         currentDisplayElements.push(currentElement);
         console.log(currentElement);
-        operationPosition++;
+        operationPosition++; // 1
     }
     // Keep typing the number in the same position
     else if (operationPosition == 1 && currentElement in numbers) {
@@ -46,7 +48,7 @@ function generateSyntaxOperation() {
     // Go to the next position and add the operator
     else if (operationPosition == 1 && currentElement in operators) {
         currentDisplayElements.push(currentElement);
-        operationPosition++;
+        operationPosition++; // 2
         console.log(currentElement);
     }
     // Is possible to change the operator before start typing the next operand
@@ -57,22 +59,25 @@ function generateSyntaxOperation() {
     // In the 3rd operand add the next number
     else if (operationPosition == 2 && currentElement in numbers) {
         currentDisplayElements.push(currentElement);
-        operationPosition++;
+        operationPosition++; // 3
         console.log(currentElement);
     }
     else if (operationPosition == 3 && currentElement in numbers) {
         currentDisplayElements[2] += currentElement;
         console.log(currentElement);
     }
-    // After you have the operation stop adding more operators
+
+    // CASES WHEN THE OPERATION GETS SOLVED
+    // If the operations gets solved after press and operator button different to 'equal'
+    else if (operationPosition == 2 && currentElement in operators) {
+        console.log("Solved by an operator");
+    }
+    else if (operationPosition == 1) {
+        console.log("Solved by an equal");
+    }
     else {
         console.log("Are you missing me?");
-        return;
     }
-
-    // Show operation in the calculator display
-    console.log(currentDisplayElements);
-    displayValue();
 }
 
 /*
@@ -158,7 +163,7 @@ function clear() {
 }
 
 // // Display the elements on calculator screen
-function displayValue() {
+function displayOnScreen() {
     if (currentDisplayElements.length == 1) {
         displayOperation.innerHTML = currentDisplayElements[0];
     }
@@ -207,8 +212,9 @@ function removeHighlight() {
 
 const buttonsSection = document.getElementById("buttons-section");
 const buttons = document.getElementsByTagName("button");
-const btnOperators = Array.from(document.getElementsByClassName("button-operator"));
+const btnOperators = document.getElementsByClassName("button-operator");
 const btnClear = document.getElementById("clear");
+const btnEqual = document.getElementById("equal");
 const displayOperation = document.querySelector(".display-operation");
 
 let operationPosition = 0;
@@ -236,10 +242,16 @@ const operators = {
 // Place the buttons of the calculator when page loads for the first time
 placeButtons();
 
-// Assign to every operator button
-btnOperators.forEach(element => {
-    element.addEventListener("click", solveOperation);
-});
+// Add listener to equal button
+for (let i = 0; i < btnOperators.length; i++) {
+    btnOperators[i].addEventListener("mouseup", solveOperation);
+}
+// Show in the calculator screen the sybols typed
+for (let i = 0; i < buttons.length; i++) {
+    if (buttons[i].value in numbers || buttons[i].value in operators) {
+        buttons[i].addEventListener("click", displayOnScreen);
+    }
+}
 
 // Add clear listener
 btnClear.addEventListener("click", clear);
