@@ -66,9 +66,13 @@ function generateSyntaxOperation() {
     }
     // After you have the operation stop adding more operators
     else {
-        console.log(currentDisplayElements);
+        console.log("Are you missing me?");
         return;
     }
+
+    // Show operation in the calculator display
+    console.log(currentDisplayElements);
+    displayValue();
 }
 
 /*
@@ -145,9 +149,47 @@ function isValidSyntax(array) {
 }
 
 function clear() {
+    // Reset the variables
     currentDisplayElements = [];
     operationPosition = 0;
     console.log(currentDisplayElements, operationPosition);
+    // Clear the display calculator
+    displayOperation.innerHTML = '';
+}
+
+// // Display the elements on calculator screen
+function displayValue() {
+    if (currentDisplayElements.length == 1) {
+        displayOperation.innerHTML = currentDisplayElements[0];
+    }
+    else if (currentDisplayElements.length == 2) {
+        displayOperation.innerHTML = currentDisplayElements[0] + 
+                                     operatorToHTML(currentDisplayElements[1]);
+    }
+    else if (currentDisplayElements.length == 3) {
+        displayOperation.innerHTML = currentDisplayElements[0] + 
+                                     operatorToHTML(currentDisplayElements[1]) + 
+                                     currentDisplayElements[2] + 
+                                     '<span class="operator">=</span>';
+    }
+    else {
+        displayOperation.innerHTML = "";
+    }
+}
+
+function operatorToHTML(string) {
+    if (string == "plus") {
+        return '<span class="operator">+</span>';
+    }
+    if (string == "minus") {
+        return '<span class="operator">-</span>';
+    }
+    if (string == "multiplication") {
+        return '<span class="operator">&#215;</span>';
+    }
+    if (string == "division") {
+        return '<span class="operator">&#247;</span>';
+    }
 }
 
 // Highlight the button while pressed
@@ -166,7 +208,8 @@ function removeHighlight() {
 const buttonsSection = document.getElementById("buttons-section");
 const buttons = document.getElementsByTagName("button");
 const btnOperators = Array.from(document.getElementsByClassName("button-operator"));
-const btnClear = document.getElementById("clear"); 
+const btnClear = document.getElementById("clear");
+const displayOperation = document.querySelector(".display-operation");
 
 let operationPosition = 0;
 let currentDisplayElements = [];
