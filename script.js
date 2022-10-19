@@ -134,6 +134,36 @@ function clear() {
     screenResult.innerHTML = '';
 }
 
+function deleteChar() {
+    // For the first operand
+    if (currentOperationElmnts.length == 1) {
+        if (currentOperationElmnts[0].length > 1) {
+            currentOperationElmnts[0] = currentOperationElmnts[0].slice(0, -1);
+        }
+        else {
+            currentOperationElmnts = [];
+            operationPosition = 0;
+        }
+    }
+    // For the operator
+    else if (currentOperationElmnts.length == 2) {
+        currentOperationElmnts.pop();
+        operationPosition = 1;
+    }
+    // For the secodn operand
+    else if (currentOperationElmnts.length == 3) {
+        if (currentOperationElmnts[2].length > 1) {
+            currentOperationElmnts[2] = currentOperationElmnts[2].slice(0, -1);
+        }
+        else {
+            currentOperationElmnts.pop();
+            operationPosition = 2;
+        }
+    }
+    console.log(currentOperationElmnts);
+    displayOperation();
+}
+
 // Function called by the percent button
 function getInPercent() {
     // Just apply percent to the last number operand
@@ -265,6 +295,7 @@ const buttonsSection = document.getElementById("buttons-section");
 const buttons = document.getElementsByTagName("button");
 const btnOperators = document.getElementsByClassName("button-operator");
 const btnClear = document.getElementById("clear");
+const btnDelete = document.getElementById("delete");
 const btnEqual = document.getElementById("equal");
 const btnPercent = document.getElementById("percent");
 const btnPlusMinus = document.getElementById("plus-minus");
@@ -319,6 +350,8 @@ for (let i = 0; i < buttons.length; i++) {
 btnEqual.addEventListener("click", displayResult);
 // Add clear listener
 btnClear.addEventListener("click", clear);
+// Delete the last character of the operation
+btnDelete.addEventListener("click", deleteChar);
 // Percentage
 btnPercent.addEventListener("click", getInPercent);
 // Plus-minus
