@@ -88,7 +88,7 @@ function generateSyntaxOperation() {
         operationPosition++; // 3
         console.log(currentElement);
     }
-    
+
     // Continue with the previous result if the user types a symbol
     else if (operationPosition == 2 && (currentElement in numbers || currentElement == "dot")) {
         // Add decimal point
@@ -113,16 +113,16 @@ function generateSyntaxOperation() {
         }
         console.log(currentElement);
     }
-    console.log("Before");
-    console.log(`Operation position: ${operationPosition}`);
-    console.log(currentOperationElmnts);
+
     // Avoid unnecessary digits repetitions, like multiple zeros
     for (let i = 0; i < currentOperationElmnts.length; i+=2) {
-        if (currentElement != "dot" || !currentOperationElmnts[i].match(/\./gi)) {
+        if (currentElement == "dot" || currentOperationElmnts[i].match(/\./gi)) {
+            currentOperationElmnts[i] = currentOperationElmnts[i].toString();
+        }
+        else {
             currentOperationElmnts[i] = Number(currentOperationElmnts[i]).toString();
         }
     }
-    console.log("After:");
     console.log(currentOperationElmnts);
 }
 
