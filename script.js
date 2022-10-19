@@ -90,33 +90,30 @@ function solveOperation() {
         const x = Number(currentOperationElmnts[0]);
         const operator = currentOperationElmnts[1];
         const y = Number(currentOperationElmnts[2]);
-        let result = 0;
         // Execute the operation
         if (operator == "plus") {
-            result = addition(x, y);
+            currentResult = addition(x, y);
         }
         else if (operator == "minus") {
-            result = substraction(x, y);
+            currentResult = substraction(x, y);
         }
         else if (operator == "multiplication") {
-            result = multiplication(x, y);
+            currentResult = multiplication(x, y);
         }
         else {
-            result = division(x, y);
+            currentResult = division(x, y);
         }
         // When the user types an operator button
         if (this.value in operators) {
-            // Use the result as your first operand for the next operation
+            // Use the currentResult as your first operand for the next operation
             operationPosition = 2;
-            currentOperationElmnts = [result, this.value];
-            console.log(`aFTER reasign result ${currentOperationElmnts}`);        
-            return result;
+            currentOperationElmnts = [currentResult, this.value];
+            console.log(`aFTER reasign currentResult ${currentOperationElmnts}`);        
         }
         // When the user types the equal button
         else if (this.value == "equal"){
             operationPosition = 2;
-            currentOperationElmnts = [result];
-            return result;
+            currentOperationElmnts = [currentResult];
         }
         else {
             return;
@@ -124,6 +121,7 @@ function solveOperation() {
     }
     return;
 }
+
 // Operation solve
 function addition(x, y) {
     return x+y;
@@ -157,9 +155,12 @@ function clear() {
     // Reset the variables
     currentOperationElmnts = [];
     operationPosition = 0;
+    currentResult = "None";
+    // Console test messages
     console.log(currentOperationElmnts, operationPosition);
     // Clear the display calculator
     screenOperation.innerHTML = '';
+    screenResult.innerHTML = '';
 }
 
 // // Display the elements on calculator screen
@@ -179,6 +180,15 @@ function displayOperation() {
     }
     else {
         screenOperation.innerHTML = "";
+    }
+}
+
+function displayResult() {
+    if (currentResult == "None") {
+        screenResult.innerHTML = '';
+    }
+    else {
+        screenResult.innerHTML = currentResult;
     }
 }
 
@@ -209,16 +219,20 @@ function removeHighlight() {
 /**********************************************************
  * DOM MANIPULATION
  */
-
+// DOM elements
 const buttonsSection = document.getElementById("buttons-section");
 const buttons = document.getElementsByTagName("button");
 const btnOperators = document.getElementsByClassName("button-operator");
 const btnClear = document.getElementById("clear");
 const btnEqual = document.getElementById("equal");
 const screenOperation = document.querySelector(".screen-operation");
+const screenResult = document.querySelector(".screen-result");
 
+// Variables
 let operationPosition = 0;
+let currentResult = "None";
 let currentOperationElmnts = [];
+// Objects
 const numbers = {
     "1": 1,
     "2": 2,
@@ -238,7 +252,7 @@ const operators = {
     division: "division"
 }
 
-
+// DOM Interactivity
 // Place the buttons of the calculator when page loads for the first time
 placeButtons();
 
@@ -250,8 +264,11 @@ for (let i = 0; i < btnOperators.length; i++) {
 for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].value in numbers || buttons[i].value in operators) {
         buttons[i].addEventListener("click", displayOperation);
+        buttons[i].addEventListener("click", displayResult);
     }
 }
 
+// Show result on screen
+btnEqual.addEventListener("click", displayResult);
 // Add clear listener
 btnClear.addEventListener("click", clear);
