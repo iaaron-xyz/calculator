@@ -42,7 +42,7 @@ function generateSyntaxOperation() {
         console.log(currentElement);
         operationPosition++; // 1
     }
-    // Keep typing the number in the same position
+    // For numbers with more than 1 digit
     else if (operationPosition == 1 && currentElement in numbers) {
         currentOperationElmnts[0] += currentElement;
         console.log(currentElement);
@@ -75,7 +75,7 @@ function generateSyntaxOperation() {
         console.log("Solved by an operator");
     }
     else if (operationPosition == 1) {
-        console.log("Solved by an equal");
+        console.log("Solved by an equal or an percent or plus-minus or delete or dot");
     }
     else {
         console.log("Are you missing me?");
@@ -107,7 +107,7 @@ function solveOperation() {
             // Use the currentResult as your first operand for the next operation
             operationPosition = 2;
             currentOperationElmnts = [currentResult, this.value];
-            console.log(`aFTER reasign currentResult ${currentOperationElmnts}`);        
+            console.log(`aFTER reasign currentResult ${currentOperationElmnts}`);
         }
         // When the user types the equal button
         else if (this.value == "equal"){
@@ -134,6 +134,15 @@ function clear() {
     screenResult.innerHTML = '';
 }
 
+// Function called by the percent button
+function getInPercent() {
+    // Just apply percent to the last number operand
+    if (currentOperationElmnts.length == 3) {
+        currentOperationElmnts[2] = division(Number(currentOperationElmnts[2]), 100);
+        displayOperation();
+    }
+}
+
 // This function gets called by number and operator buttons
 function displayOperation() {
     if (currentOperationElmnts.length == 1) {
@@ -152,6 +161,7 @@ function displayOperation() {
     else {
         screenOperation.innerHTML = "";
     }
+    console.log(currentOperationElmnts);
 }
 
 // This function gets called by any button
@@ -230,6 +240,7 @@ const buttons = document.getElementsByTagName("button");
 const btnOperators = document.getElementsByClassName("button-operator");
 const btnClear = document.getElementById("clear");
 const btnEqual = document.getElementById("equal");
+const btnPercent = document.getElementById("percent");
 const screenOperation = document.querySelector(".screen-operation");
 const screenResult = document.querySelector(".screen-result");
 
@@ -280,3 +291,5 @@ for (let i = 0; i < buttons.length; i++) {
 btnEqual.addEventListener("click", displayResult);
 // Add clear listener
 btnClear.addEventListener("click", clear);
+// Percentage
+btnPercent.addEventListener("click", getInPercent);
