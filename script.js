@@ -74,14 +74,29 @@ function generateSyntaxOperation() {
         console.log(currentElement);
     }
 
-    // In the 3rd operand add the next number
+    // Start a new operation if after the result the user types a number
+    else if (operationPosition == 2 && (currentElement in numbers || currentElement == "dot") && currentOperationElmnts.length == 1) {
+        clear();
+        // Add decimal point
+        if (currentElement == "dot") {
+            currentOperationElmnts.push("0.");
+        }
+        // Add a digit
+        else if (currentOperationElmnts){
+            currentOperationElmnts.push(currentElement);
+        }
+        operationPosition++; // 3
+        console.log(currentElement);
+    }
+    
+    // Continue with the previous result if the user types a symbol
     else if (operationPosition == 2 && (currentElement in numbers || currentElement == "dot")) {
         // Add decimal point
         if (currentElement == "dot") {
             currentOperationElmnts.push("0.");
         }
         // Add a digit
-        else {
+        else if (currentOperationElmnts){
             currentOperationElmnts.push(currentElement);
         }
         operationPosition++; // 3
