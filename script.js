@@ -190,7 +190,7 @@ function removeHighlight() {
 function isValidSyntax(array) {
     // The array must contain 3 elements: <number> <operator> <number>
     if (array.length == 3) {
-        if (Number(array[0]) && Number(array[2]) && array[1] in operators) {
+        if ((Number(array[0]) || Number(array[0]) == 0) && (Number(array[2]) || Number(array[2]) == 0) && array[1] in operators) {
             return true;
         }
     }
