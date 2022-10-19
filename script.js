@@ -37,16 +37,31 @@ function generateSyntaxOperation() {
 
     // GOOD CASES
     // Append the first operand (number)
-    if (operationPosition == 0 && currentElement in numbers) {
-        currentOperationElmnts.push(currentElement);
-        console.log(currentElement);
+    if (operationPosition == 0 && (currentElement in numbers || currentElement == "dot")) {
+        // Add decimal point
+        if (currentElement == "dot") {
+            currentOperationElmnts.push("0.");
+        }
+        // Add a digit
+        else {
+            currentOperationElmnts.push(currentElement);
+        }
         operationPosition++; // 1
+        console.log(currentElement);
     }
     // For numbers with more than 1 digit
-    else if (operationPosition == 1 && currentElement in numbers) {
-        currentOperationElmnts[0] += currentElement;
+    else if (operationPosition == 1 && (currentElement in numbers || currentElement == "dot")) {
+        // Add a decimal point
+        if (currentElement == "dot" && !currentOperationElmnts[0].match(/\./gi)) {
+            currentOperationElmnts[0] += "."
+        }
+        // Add a digit
+        else if (currentElement != "dot") {
+            currentOperationElmnts[0] += currentElement;
+        }
         console.log(currentElement);
     }
+
     // Go to the next position and add the operator
     else if (operationPosition == 1 && currentElement in operators) {
         currentOperationElmnts.push(currentElement);
@@ -58,20 +73,42 @@ function generateSyntaxOperation() {
         currentOperationElmnts[1] = currentElement;
         console.log(currentElement);
     }
+
     // In the 3rd operand add the next number
-    else if (operationPosition == 2 && currentElement in numbers) {
-        currentOperationElmnts.push(currentElement);
+    else if (operationPosition == 2 && (currentElement in numbers || currentElement == "dot")) {
+        // Add decimal point
+        if (currentElement == "dot") {
+            currentOperationElmnts.push("0.");
+        }
+        // Add a digit
+        else {
+            currentOperationElmnts.push(currentElement);
+        }
         operationPosition++; // 3
         console.log(currentElement);
     }
-    else if (operationPosition == 3 && currentElement in numbers) {
-        currentOperationElmnts[2] += currentElement;
+    else if (operationPosition == 3 && (currentElement in numbers || currentElement == "dot")) {
+        // Add a decimal point
+        if (currentElement == "dot" && !currentOperationElmnts[2].match(/\./gi)) {
+            currentOperationElmnts[2] += "."
+        }
+        // Add a digit
+        else if (currentElement != "dot") {
+            currentOperationElmnts[2] += currentElement;
+        }
         console.log(currentElement);
     }
+    console.log("Before");
+    console.log(`Operation position: ${operationPosition}`);
+    console.log(currentOperationElmnts);
     // Avoid unnecessary digits repetitions, like multiple zeros
     for (let i = 0; i < currentOperationElmnts.length; i+=2) {
-        currentOperationElmnts[i] = Number(currentOperationElmnts[i]).toString();
+        if (currentElement != "dot" || !currentOperationElmnts[i].match(/\./gi)) {
+            currentOperationElmnts[i] = Number(currentOperationElmnts[i]).toString();
+        }
     }
+    console.log("After:");
+    console.log(currentOperationElmnts);
 }
 
 // This functions gets called everytime an operator is clicked
@@ -130,7 +167,7 @@ function deleteChar() {
     // For the first operand
     if (currentOperationElmnts.length == 1) {
         if (currentOperationElmnts[0].length > 1) {
-            currentOperationElmnts[0] = currentOperationElmnts[0].slice(0, -1);
+            currentOperationElmnts[0] = currentOperationElmnts[0].toString().slice(0, -1);
         }
         else {
             currentOperationElmnts = [];
@@ -145,7 +182,7 @@ function deleteChar() {
     // For the secodn operand
     else if (currentOperationElmnts.length == 3) {
         if (currentOperationElmnts[2].length > 1) {
-            currentOperationElmnts[2] = currentOperationElmnts[2].slice(0, -1);
+            currentOperationElmnts[2] = currentOperationElmnts[2].toString().slice(0, -1);
         }
         else {
             currentOperationElmnts.pop();
@@ -191,20 +228,25 @@ function addPlusMinus() {
     console.log(minusSign);
 }
 
+// Display on screen the decimal point number
+function DisplayDecimal() {
+    displayOperation();
+}
+
 // This function gets called by number and operator buttons
 function displayOperation() {
     if (currentOperationElmnts.length == 1) {
-        screenOperation.innerHTML = Number(currentOperationElmnts[0]);
+        screenOperation.innerHTML = currentOperationElmnts[0];
     }
     else if (currentOperationElmnts.length == 2) {
-        screenOperation.innerHTML = Number(currentOperationElmnts[0]) + 
-                                     operatorToHTML(currentOperationElmnts[1]);
+        screenOperation.innerHTML = currentOperationElmnts[0] + 
+                                    operatorToHTML(currentOperationElmnts[1]);
     }
     else if (currentOperationElmnts.length == 3) {
-        screenOperation.innerHTML = Number(currentOperationElmnts[0]) + 
-                                     operatorToHTML(currentOperationElmnts[1]) + 
-                                     Number(currentOperationElmnts[2]) + 
-                                     '<span class="operator">=</span>';
+        screenOperation.innerHTML = currentOperationElmnts[0] + 
+                                    operatorToHTML(currentOperationElmnts[1]) + 
+                                    currentOperationElmnts[2] + 
+                                    '<span class="operator">=</span>';
     }
     else {
         screenOperation.innerHTML = "";
@@ -291,6 +333,7 @@ const btnDelete = document.getElementById("delete");
 const btnEqual = document.getElementById("equal");
 const btnPercent = document.getElementById("percent");
 const btnPlusMinus = document.getElementById("plus-minus");
+const btnDot = document.getElementById("dot");
 const screenOperation = document.querySelector(".screen-operation");
 const screenResult = document.querySelector(".screen-result");
 
@@ -298,6 +341,7 @@ const screenResult = document.querySelector(".screen-result");
 let operationPosition = 0;
 let currentResult = "None";
 let minusSign = [0, 0];
+// let decimalPoint = [false, false];
 let currentOperationElmnts = [];
 // Objects
 const numbers = {
@@ -348,3 +392,5 @@ btnDelete.addEventListener("click", deleteChar);
 btnPercent.addEventListener("click", getInPercent);
 // Plus-minus
 btnPlusMinus.addEventListener("click", addPlusMinus);
+// Put a decilmal points
+btnDot.addEventListener("click", DisplayDecimal);
