@@ -114,9 +114,9 @@ function solveOperation() {
             operationPosition = 2;
             currentOperationElmnts = [currentResult];
         }
-        else {
-            return;
-        }
+        // Reset minus sign counter depending on the result value
+        minusSign[0] = currentResult >= 0 ? 0 : 1;
+        minusSign[1] = 0;
     }
     return;
 }
@@ -141,6 +141,32 @@ function getInPercent() {
         currentOperationElmnts[2] = division(Number(currentOperationElmnts[2]), 100);
         displayOperation();
     }
+}
+
+// This function gets called by the plus-minus button
+// Toggle the minus sign to the current number
+function addPlusMinus() {
+    // Toggle the minus sign to the first number
+    if (currentOperationElmnts.length == 1 || currentOperationElmnts.length == 2) {
+        if (minusSign[0]%2 == 0) {
+            currentOperationElmnts[0] = "-" + currentOperationElmnts[0].toString().replace(/-/g, "");
+        }
+        else {
+            currentOperationElmnts[0] = currentOperationElmnts[0].toString().replace(/-/g,"");
+        }
+        minusSign[0]++;
+    }
+    else if (currentOperationElmnts.length == 3) {
+        if (minusSign[1]%2 == 0) {
+            currentOperationElmnts[2] = "-" + currentOperationElmnts[2].toString().replace(/-/g, "");
+        }
+        else {
+            currentOperationElmnts[2] = currentOperationElmnts[2].toString().replace(/-/g,"");
+        }
+        minusSign[1]++;
+    }
+    displayOperation();
+    console.log(minusSign);
 }
 
 // This function gets called by number and operator buttons
@@ -241,12 +267,14 @@ const btnOperators = document.getElementsByClassName("button-operator");
 const btnClear = document.getElementById("clear");
 const btnEqual = document.getElementById("equal");
 const btnPercent = document.getElementById("percent");
+const btnPlusMinus = document.getElementById("plus-minus");
 const screenOperation = document.querySelector(".screen-operation");
 const screenResult = document.querySelector(".screen-result");
 
 // Variables
 let operationPosition = 0;
 let currentResult = "None";
+let minusSign = [0, 0];
 let currentOperationElmnts = [];
 // Objects
 const numbers = {
@@ -293,3 +321,5 @@ btnEqual.addEventListener("click", displayResult);
 btnClear.addEventListener("click", clear);
 // Percentage
 btnPercent.addEventListener("click", getInPercent);
+// Plus-minus
+btnPlusMinus.addEventListener("click", addPlusMinus);
