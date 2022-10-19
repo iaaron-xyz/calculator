@@ -1,11 +1,11 @@
 /*************************************************
  * FUNCTIONS
  */
-
-/*
-This functions gets executed at the start of the page
-to place the buttons at proper size
-*/
+/**
+ * Functions That Get Executed When The Page Loads
+ */
+// This functions gets executed at the start of the page
+// to place the buttons at proper size
 function placeButtons() {
     // Get the dimesnions of the buttons section
     const buttonsSectionStyle = getComputedStyle(buttonsSection)
@@ -26,10 +26,12 @@ function placeButtons() {
     }
 }
 
-/*
-This functions append valid elements into an array
-that will contain the elements of the current operation
-*/
+
+/**
+ * Functions that get called by an event 
+ */
+//This functions append valid elements into an array
+//that will contain the elements of the current operation
 function generateSyntaxOperation() {
     const currentElement = this.value;
 
@@ -80,10 +82,7 @@ function generateSyntaxOperation() {
     }
 }
 
-/*
-If the syntax is in order solve the current operation and set
-everything ready for the next
-*/
+// This functions gets called everytime an operator is clicked
 function solveOperation() {
     if (isValidSyntax(currentOperationElmnts)) {
         // Create short varialbes for better reading (is it good for performance?)
@@ -122,35 +121,7 @@ function solveOperation() {
     return;
 }
 
-// Operation solve
-function addition(x, y) {
-    return x+y;
-}
-function substraction(x, y) {
-    return x-y;
-}
-function multiplication(x, y) {
-    return x*y;
-}
-function division(x, y) {
-    return roundOff(x/y, 5);
-}
-function roundOff(number, places) {
-    const x = Math.pow(10, places);
-    return Math.round(number*x)/x;
-}
-
-// Validate if the current operation is in correct order to be solved
-function isValidSyntax(array) {
-    // The array must contain 3 elements: <number> <operator> <number>
-    if (array.length == 3) {
-        if (Number(array[0]) && Number(array[2]) && array[1] in operators) {
-            return true;
-        }
-    }
-    return false;
-}
-
+// Function called by the Clear button
 function clear() {
     // Reset the variables
     currentOperationElmnts = [];
@@ -163,7 +134,7 @@ function clear() {
     screenResult.innerHTML = '';
 }
 
-// // Display the elements on calculator screen
+// This function gets called by number and operator buttons
 function displayOperation() {
     if (currentOperationElmnts.length == 1) {
         screenOperation.innerHTML = currentOperationElmnts[0];
@@ -183,6 +154,8 @@ function displayOperation() {
     }
 }
 
+// This function gets called by any button
+// Displays the result on screen-result section
 function displayResult() {
     if (currentResult == "None") {
         screenResult.innerHTML = '';
@@ -190,6 +163,28 @@ function displayResult() {
     else {
         screenResult.innerHTML = currentResult;
     }
+}
+
+// Highlight the button while pressed
+function addHighlight() {
+    this.classList.add("button-press");
+}
+function removeHighlight() {
+    this.classList.remove("button-press");
+}
+
+/**
+ * Auxiliar functions
+ */
+// Validate if the current operation is in correct order to be solved
+function isValidSyntax(array) {
+    // The array must contain 3 elements: <number> <operator> <number>
+    if (array.length == 3) {
+        if (Number(array[0]) && Number(array[2]) && array[1] in operators) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function operatorToHTML(string) {
@@ -207,18 +202,28 @@ function operatorToHTML(string) {
     }
 }
 
-// Highlight the button while pressed
-function addHighlight() {
-    this.classList.add("button-press");
+function addition(x, y) {
+    return x+y;
 }
-function removeHighlight() {
-    this.classList.remove("button-press");
+function substraction(x, y) {
+    return x-y;
+}
+function multiplication(x, y) {
+    return x*y;
+}
+function division(x, y) {
+    return roundOff(x/y, 5);
+}
+function roundOff(number, places) {
+    const x = Math.pow(10, places);
+    return Math.round(number*x)/x;
 }
 
 
 /**********************************************************
  * DOM MANIPULATION
  */
+
 // DOM elements
 const buttonsSection = document.getElementById("buttons-section");
 const buttons = document.getElementsByTagName("button");
@@ -252,7 +257,10 @@ const operators = {
     division: "division"
 }
 
-// DOM Interactivity
+/** 
+ * DOM Interactivity
+*/
+
 // Place the buttons of the calculator when page loads for the first time
 placeButtons();
 
