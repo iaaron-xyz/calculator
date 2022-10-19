@@ -353,6 +353,7 @@ const screenOperation = document.querySelector(".screen-operation");
 const screenResult = document.querySelector(".screen-result");
 
 // Variables
+const year = new Date().getFullYear();
 let operationPosition = 0;
 let currentResult = "None";
 let minusSign = [0, 0];
@@ -384,6 +385,8 @@ const operators = {
 
 // Place the buttons of the calculator when page loads for the first time
 placeButtons();
+// Add curretn year on the footer
+document.getElementById("year").innerHTML = year;
 
 // Add listener to equal button
 for (let i = 0; i < btnOperators.length; i++) {
