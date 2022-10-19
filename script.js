@@ -318,13 +318,13 @@ function operatorToHTML(string) {
 }
 
 function addition(x, y) {
-    return x+y;
+    return roundOff(x+y, 5);
 }
 function substraction(x, y) {
-    return x-y;
+    return roundOff(x-y, 5);
 }
 function multiplication(x, y) {
-    return x*y;
+    return roundOff(x*y, 5);
 }
 function division(x, y) {
     return roundOff(x/y, 5);
