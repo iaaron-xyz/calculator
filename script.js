@@ -146,16 +146,16 @@ function getInPercent() {
 // This function gets called by number and operator buttons
 function displayOperation() {
     if (currentOperationElmnts.length == 1) {
-        screenOperation.innerHTML = currentOperationElmnts[0];
+        screenOperation.innerHTML = Number(currentOperationElmnts[0]);
     }
     else if (currentOperationElmnts.length == 2) {
-        screenOperation.innerHTML = currentOperationElmnts[0] + 
+        screenOperation.innerHTML = Number(currentOperationElmnts[0]) + 
                                      operatorToHTML(currentOperationElmnts[1]);
     }
     else if (currentOperationElmnts.length == 3) {
-        screenOperation.innerHTML = currentOperationElmnts[0] + 
+        screenOperation.innerHTML = Number(currentOperationElmnts[0]) + 
                                      operatorToHTML(currentOperationElmnts[1]) + 
-                                     currentOperationElmnts[2] + 
+                                     Number(currentOperationElmnts[2]) + 
                                      '<span class="operator">=</span>';
     }
     else {
