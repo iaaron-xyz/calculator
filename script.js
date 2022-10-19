@@ -68,17 +68,9 @@ function generateSyntaxOperation() {
         currentOperationElmnts[2] += currentElement;
         console.log(currentElement);
     }
-
-    // CASES WHEN THE OPERATION GETS SOLVED
-    // If the operations gets solved after press and operator button different to 'equal'
-    else if (operationPosition == 2 && currentElement in operators) {
-        console.log("Solved by an operator");
-    }
-    else if (operationPosition == 1) {
-        console.log("Solved by an equal or an percent or plus-minus or delete or dot");
-    }
-    else {
-        console.log("Are you missing me?");
+    // Avoid unnecessary digits repetitions, like multiple zeros
+    for (let i = 0; i < currentOperationElmnts.length; i+=2) {
+        currentOperationElmnts[i] = Number(currentOperationElmnts[i]).toString();
     }
 }
 
